@@ -1,7 +1,12 @@
-# UNPKG &middot; [![Travis][build-badge]][build]
+# UNPKG (fork)
 
-[build-badge]: https://img.shields.io/travis/mjackson/unpkg/master.svg?style=flat-square
-[build]: https://travis-ci.org/mjackson/unpkg
+**The goals of this fork are:**
+
+* Make it easier to self-host Unpkg.
+* Keep it upstream compatible.
+* Keep dependencies up to date.
+* Make no functional changes or add new features.
+------
 
 [UNPKG](https://unpkg.com) is a fast, global [content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) for everything on [npm](https://www.npmjs.com/).
 
