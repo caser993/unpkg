@@ -21,7 +21,7 @@
     "@babel/plugin-syntax-export-default-from": "^7.16.7",
     "@babel/plugin-syntax-export-namespace-from": "^7.8.3",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
-    "@emotion/core": "./polyfills/@emotion_core",
+    "@emotion/core": "file:./polyfills/@emotion_core",
     "@emotion/react": "^11.7.1",
     "@reach/visually-hidden": "^0.16.0",
     "cheerio": "^1.0.0-rc.10",
