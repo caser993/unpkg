@@ -1,5 +1,6 @@
 {
   "name": "unpkg",
+  "version": "1.0.0",
   "private": true,
   "description": "The CDN for everything on npm",
   "scripts": {
