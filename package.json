@@ -79,6 +79,6 @@
     "supertest": "^3.0.0"
   },
   "engines": {
-    "node": "12"
+    "node": ">=12"
   }
 }
