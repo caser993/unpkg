@@ -64,7 +64,7 @@ export default function getHighlights(code, file) {
   try {
     let continuation = false;
     const hi = getLines(code).map(line => {
-      const result = hljs.highlight(language, line, false, continuation);
+      const result = hljs.highlight(line, { language, ignoreIllegals: false });
       continuation = result.top;
       return result;
     });
