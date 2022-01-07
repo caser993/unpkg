@@ -1,16 +1,18 @@
-const builtinModules = require('module').builtinModules;
-const execSync = require('child_process').execSync;
+import { builtinModules } from 'module';
+import { execSync } from 'child_process';
+import { readFileSync } from 'fs';
 
-const babel = require('rollup-plugin-babel');
-const commonjs = require('rollup-plugin-commonjs');
-const compiler = require('@ampproject/rollup-plugin-closure-compiler');
-const json = require('rollup-plugin-json');
-const replace = require('rollup-plugin-replace');
-const resolve = require('rollup-plugin-node-resolve');
-const url = require('rollup-plugin-url');
+import babel from 'rollup-plugin-babel';
+import commonjs from 'rollup-plugin-commonjs';
+import compiler from '@ampproject/rollup-plugin-closure-compiler';
+import json from 'rollup-plugin-json';
+import replace from 'rollup-plugin-replace';
+import resolve from 'rollup-plugin-node-resolve';
+import url from 'rollup-plugin-url';
 
-const entryManifest = require('./plugins/entryManifest');
-const pkg = require('./package.json');
+import entryManifest from './plugins/entryManifest.mjs';
+
+const pkg = JSON.parse(readFileSync('./package.json'))
 
 const buildId =
   process.env.BUILD_ID ||
@@ -95,4 +97,4 @@ const server = {
   ]
 };
 
-module.exports = client.concat(server);
+export default client.concat(server);

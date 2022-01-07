@@ -1,11 +1,11 @@
-const writeFile = require('fs').writeFileSync;
-const tempy = require('tempy');
+import { writeFileSync as writeFile } from 'fs';
+import tempy from 'tempy';
 
 function updateWatchfile(watchfile) {
   writeFile(watchfile, '' + Date.now());
 }
 
-function entryManifest() {
+export default function entryManifest() {
   let manifests = [];
 
   const watchfile = tempy.file();
@@ -92,4 +92,3 @@ function entryManifest() {
   };
 }
 
-module.exports = entryManifest;
