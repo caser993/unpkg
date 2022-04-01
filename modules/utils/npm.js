@@ -18,8 +18,10 @@ const oneMinute = oneSecond * 60;
 
 const cache = new LRUCache({
   max: oneMegabyte * 40,
-  length: Buffer.byteLength,
-  maxAge: oneSecond
+  maxAge: oneSecond,
+  // alexgorbatchev: fixes for `lru-cache@^7.0.0`
+  sizeCalculation: value => Buffer.byteLength(value),
+  maxSize: oneMegabyte,
 });
 
 const notFound = '';
