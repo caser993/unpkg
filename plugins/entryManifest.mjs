@@ -1,5 +1,5 @@
 import { writeFileSync as writeFile } from 'fs';
-import tempy from 'tempy';
+import { temporaryFile } from 'tempy';
 
 function updateWatchfile(watchfile) {
   writeFile(watchfile, '' + Date.now());
@@ -8,7 +8,7 @@ function updateWatchfile(watchfile) {
 export default function entryManifest() {
   let manifests = [];
 
-  const watchfile = tempy.file();
+  const watchfile = temporaryFile();
   updateWatchfile(watchfile);
 
   return {
@@ -91,4 +91,3 @@ export default function entryManifest() {
     }
   };
 }
-
