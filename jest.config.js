@@ -7,11 +7,4 @@ module.exports = {
     'utils\\/npm\\.js': '<rootDir>/modules/__mocks__/npmMock.js'
   },
   testMatch: ['**/__tests__/*-test.js'],
-
-  // agorbatchev: some dependencies are now ESM modules and I couldn't jest to work with `babel-jest`
-  preset: `ts-jest`,
-  transformIgnorePatterns: ['/node_modules/(?!(pretty-bytes))'],
-  transform: {
-    '\\.js$': 'ts-jest',
-  }
 };

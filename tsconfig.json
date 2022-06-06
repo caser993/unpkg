@@ -1,8 +1,0 @@
-// agorbatchev: TypeScript is used to get Jest to work with ESM modules
-{
-  "compilerOptions": {
-    "allowJs": true,
-    "esModuleInterop": true,
-    "jsx": "react"
-  }
-}

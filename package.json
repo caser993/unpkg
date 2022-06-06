@@ -9,8 +9,11 @@
     "lint": "eslint .",
     "serve": "nodemon -w server.js server.js",
     "test": "jest",
-    "watch": "rollup -c -w",
-    "postinstall": "yarn run build"
+    "watch": "rollup -c -w"
+  },
+  "resolutions": {
+    "//": "agorbatchev: pretty-bytes >=6.x is ESM, which is not working with the current build/test system in place",
+    "pretty-bytes": "5.6.0"
   },
   "dependencies": {
     "@babel/core": "^7.18.2",
@@ -37,7 +40,7 @@
     "mime": "^3.0.0",
     "morgan": "^1.10.0",
     "ndjson": "^2.0.0",
-    "pretty-bytes": "^6.0.0",
+    "pretty-bytes": "^5.6.0",
     "prop-types": "^15.8.1",
     "react": "^18.1.0",
     "react-dom": "^18.1.0",
@@ -78,9 +81,7 @@
     "rollup-plugin-node-resolve": "^5.2.0",
     "rollup-plugin-replace": "^2.1.0",
     "rollup-plugin-url": "^3.0.1",
-    "supertest": "^6.2.3",
-    "ts-jest": "^28.0.4",
-    "typescript": "^4.7.3"
+    "supertest": "^6.2.3"
   },
   "engines": {
     "node": ">=12"
