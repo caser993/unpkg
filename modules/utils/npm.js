@@ -43,6 +43,13 @@ function encodePackageName(packageName) {
 }
 
 async function fetchPackageInfo(packageName, log) {
+  const cacheKey = `pkg-info-${packageName}`;
+  const cacheValue = cache.get(cacheKey);
+
+  if (cacheValue != null) {
+    return cacheValue === notFound ? null : JSON.parse(cacheValue);
+  }
+
   const name = encodePackageName(packageName);
   const infoURL = `${npmRegistryURL}/${name}`;
 
@@ -61,10 +68,14 @@ async function fetchPackageInfo(packageName, log) {
   const res = await get(options);
 
   if (res.statusCode === 200) {
-    return bufferStream(res).then(JSON.parse);
+    return bufferStream(res).then( value => {
+      cache.set(cacheKey, value, oneMinute);
+      return JSON.parse(value);
+    });
   }
-
+  
   if (res.statusCode === 404) {
+    cache.set(cacheKey, notFound, 5 * oneMinute);
     return null;
   }
 
@@ -171,7 +182,8 @@ export async function getPackage(packageName, version, log) {
   const tarballName = isScopedPackageName(packageName)
     ? packageName.split('/')[1]
     : packageName;
-  const tarballURL = `${npmRegistryURL}/${packageName}/-/${tarballName}-${version}.tgz`;
+  const pkgConfig = await getPackageConfig(packageName, version, log);
+  const tarballURL = pkgConfig.dist ? pkgConfig.dist.tarball : `${npmRegistryURL}/${packageName}/-/${tarballName}-${version}.tgz`;
 
   log.debug('Fetching package for %s from %s', packageName, tarballURL);
 

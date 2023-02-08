@@ -43,6 +43,8 @@ export default function serveStats(req, res) {
   if (until >= new Date()) {
     return res.status(403).send({ error: '?until must be a date in the past' });
   }
+  
+  return res.send({ error: 'todo' });
 
   getStats(since, until).then(
     stats => {
