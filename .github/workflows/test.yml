@@ -1,39 +1,49 @@
-name: test
-
+name: 'Tests'
 on:
   push:
     branches:
-      - "**"
-    tags-ignore:
-      - v*
-
+      - '**'
+    paths-ignore:
+      - README.md
+      - CONTRIBUTING.md
+  pull_request:
+    branches:
+      - '**'
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  test:
+    runs-on: ${{ matrix.os }}
+    continue-on-error: ${{ matrix.os == 'windows-latest' }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        node-version:
+          - 16
+        include:
+          node-version: 18
+          os: ubuntu-latest
+    name: Node ${{ matrix.node-version }} on ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v2
-
-      - run: echo "::set-output name=version::$(cat .nvmrc)"
-        id: nvmrc
-
-      - name: Setup node
-        uses: actions/setup-node@v1
+      - name: Checkout
+        uses: actions/checkout@v3
         with:
-          node-version: "${{ steps.nvmrc.outputs.version }}"
+          submodules: 'recursive'
 
-      - run: echo "::set-output name=dir::$(yarn cache dir)"
-        id: yarn-cache
-
-      - name: Restore dependency cache
-        uses: actions/cache@v2
+      - name: Install Node.js
+        uses: actions/setup-node@v3
         with:
-          path: "${{ steps.yarn-cache.outputs.dir }}"
-          key: ${{ runner.os }}-yarn-cache-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            ${{ runner.os }}-yarn-cache-
+          node-version: ${{ matrix.node-version }}
+          # cache: 'pnpm'
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 7
 
       - name: Install dependencies
-        run: yarn --frozen-lockfile
+        run: pnpm install --ignore-scripts
 
       - name: Test
-        run: yarn test
+        run: pnpm test
