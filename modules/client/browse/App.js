@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { Global, css, jsx } from '@emotion/core';
+import { Global, css, jsx } from '@emotion/react';
 import { Fragment } from 'react';
 import PropTypes from 'prop-types';
 

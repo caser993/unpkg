@@ -19,10 +19,19 @@ const oneMinute = oneSecond * 60;
 const cache = new LRUCache({
   max: 500,
   // alexgorbatchev: fixes for `lru-cache@^7.0.0`
-  ttl: oneSecond,
+  ttl: oneSecond * 5,
   sizeCalculation: value => Buffer.byteLength(value),
   maxSize: oneMegabyte,
 });
+
+// compatible whith old version
+var cset = cache.set.bind(cache);
+cache.set = (key, value, opts) => {
+  if (typeof opts === 'number') {
+    opts = { ttl: opts };
+  }
+  return cset(key, value, opts);
+};
 
 const notFound = '';
 

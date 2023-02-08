@@ -5,4 +5,4 @@ import App from './browse/App.js';
 
 const props = window.__DATA__ || {};
 
-ReactDOM.hydrate(<App {...props} />, document.getElementById('root'));
+ReactDOM.hydrateRoot(document.getElementById('root'), <App {...props} />);

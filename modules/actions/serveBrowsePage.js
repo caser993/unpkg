@@ -12,14 +12,14 @@ const doctype = '<!DOCTYPE html>';
 const globalURLs =
   process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging'
     ? {
-        '@emotion/core': '/@emotion/core@10.0.6/dist/core.umd.min.js',
-        react: '/react@16.8.6/umd/react.production.min.js',
-        'react-dom': '/react-dom@16.8.6/umd/react-dom.production.min.js'
+        '@emotion/react': '/@emotion/react@11.10.5/dist/emotion-react.umd.min.js',
+        react: '/react@18.2.0/umd/react.production.min.js',
+        'react-dom': '/react-dom@18.2.0/umd/react-dom.production.min.js'
       }
     : {
-        '@emotion/core': '/@emotion/core@10.0.6/dist/core.umd.min.js',
-        react: '/react@16.8.6/umd/react.development.js',
-        'react-dom': '/react-dom@16.8.6/umd/react-dom.development.js'
+        '@emotion/react': '/@emotion/react@11.10.5/dist/emotion-react.umd.min.js',
+        react: '/react@18.2.0/umd/react.development.js',
+        'react-dom': '/react-dom@18.2.0/umd/react-dom.development.js'
       };
 
 function byVersion(a, b) {

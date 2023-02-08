@@ -31,7 +31,8 @@ const client = ['browse', 'main'].map(entryName => {
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        '@emotion/core': 'emotionCore'
+        '@emotion/core': 'emotionCore',
+        '@emotion/react': 'emotionReact'
       }
     },
     moduleContext: {

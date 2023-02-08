@@ -64,7 +64,7 @@ async function findMatchingEntries(stream, filename) {
   });
 }
 
-async function serveDirectoryBrowser(req, res) {
+async function serveDirectoryBrowser(req, res, next) {
   const stream = await getPackage(req.packageName, req.packageVersion, req.log);
 
   const filename = req.filename.slice(0, -1) || '/';
@@ -80,7 +80,7 @@ async function serveDirectoryBrowser(req, res) {
     details: entries
   };
 
-  serveBrowsePage(req, res);
+  serveBrowsePage(req, res, next);
 }
 
 export default asyncHandler(serveDirectoryBrowser);

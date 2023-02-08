@@ -1,5 +1,5 @@
 /** @jsx jsx */
-import { jsx } from '@emotion/core';
+import { jsx } from '@emotion/react';
 import { FaTwitter, FaGithub } from 'react-icons/fa';
 
 function createIcon(Type, { css, ...rest }) {

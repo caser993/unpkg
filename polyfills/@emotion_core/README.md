@@ -1,1 +1,0 @@
-This allows us to get around `@emotion/core` deprecation in Unpkg codebase without modifying the original source.
