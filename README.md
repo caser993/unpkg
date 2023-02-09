@@ -10,7 +10,7 @@
 
 [UNPKG](https://unpkg.com) is a fast, global [content delivery network](https://en.wikipedia.org/wiki/Content_delivery_network) for everything on [npm](https://www.npmjs.com/).
 
-### Development
+## Development
 
 prepare:
 
@@ -28,7 +28,7 @@ pnpm watch
 pnpm serve
 ```
 
-### Build and deploy
+## Build and deploy
 
 ```bash
 cp .env.sample .env.prod # and edit the env.prod config for production
@@ -48,10 +48,34 @@ npm i --omit dev
 pm2 -n unpkg start.js
 ```
 
-### Documentation
+## Configuration with `.env[.prod|.local]`
+
+Learn more from the file [.env.sample](./.env.sample).
+
+```yaml
+# config for private registry url
+NPM_REGISTRY_URL=https://registry.npmjs.org
+
+# your unpkg website url
+ORIGIN=https://npmcdn.lzw.me
+# port to listen on. default 8080
+PORT=8080
+
+# enableDebugging
+# DEBUG=1
+
+# Google Analytics MEASUREMENT_ID. your can set empty to disable it.
+GTAG_MEASUREMENT_ID=UA-140352188-1
+
+# ENABLE_CLOUDFLARE=1
+# CLOUDFLARE_EMAIL=test@lzw.me
+# CLOUDFLARE_KEY=test
+```
+
+## Documentation
 
 Please visit [the UNPKG website](https://unpkg.com) to learn more about how to use it.
 
-### Sponsors
+## Sponsors
 
 Our sponsors and backers are listed [in SPONSORS.md](SPONSORS.md).

@@ -3,6 +3,8 @@ import { subDays, startOfDay } from 'date-fns';
 import getStats from '../utils/getStats.js';
 
 export default function serveStats(req, res) {
+  if (process.env.ENABLE_CLOUDFLARE === '1') return res.send({ error: 'disabled' });
+
   let since, until;
   if (req.query.period) {
     switch (req.query.period) {
@@ -44,8 +46,6 @@ export default function serveStats(req, res) {
     return res.status(403).send({ error: '?until must be a date in the past' });
   }
   
-  return res.send({ error: 'todo' });
-
   getStats(since, until).then(
     stats => {
       res

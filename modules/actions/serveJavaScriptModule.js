@@ -12,6 +12,7 @@ export default function serveJavaScriptModule(req, res) {
 
     res
       .set({
+        'Cross-Origin-Resource-Policy': 'cross-origin',
         'Content-Length': Buffer.byteLength(code),
         'Content-Type': getContentTypeHeader(req.entry.contentType),
         'Cache-Control': 'public, max-age=31536000', // 1 year

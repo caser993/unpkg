@@ -20,7 +20,7 @@ const cache = new LRUCache({
   max: 500,
   // alexgorbatchev: fixes for `lru-cache@^7.0.0`
   ttl: oneSecond * 5,
-  sizeCalculation: value => Buffer.byteLength(value),
+  sizeCalculation: value => Buffer.byteLength(value) || 1,
   maxSize: oneMegabyte,
 });
 

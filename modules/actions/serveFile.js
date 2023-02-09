@@ -13,6 +13,7 @@ export default function serveFile(req, res) {
 
   res
     .set({
+      'Cross-Origin-Resource-Policy': 'cross-origin',
       'Content-Type': getContentTypeHeader(req.entry.contentType),
       'Content-Length': req.entry.size,
       'Cache-Control': 'public, max-age=31536000', // 1 year
