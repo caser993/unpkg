@@ -21,6 +21,8 @@ export default function MainTemplate({
   content = h(''),
   elements = []
 }) {
+  const GTAG_MEASUREMENT_ID = process.env.GTAG_MEASUREMENT_ID || '';
+
   return e(
     'html',
     { lang: 'en' },
@@ -28,14 +30,13 @@ export default function MainTemplate({
       'head',
       null,
       // Global site tag (gtag.js) - Google Analytics
-      e('script', {
-        async: true,
-        src: 'https://www.googletagmanager.com/gtag/js?id=UA-140352188-1'
-      }),
-      x(`window.dataLayer = window.dataLayer || [];
+      !GTAG_MEASUREMENT_ID ? null : x(`var s = document.createElement('script');
+s.async = 'true';
+s.src='https://www.googletagmanager.com/gtag/js?id=${GTAG_MEASUREMENT_ID}';
+document.head.append(s);
+window.dataLayer = window.dataLayer || [];
 function gtag(){dataLayer.push(arguments);}
-gtag('js', new Date());
-gtag('config', 'UA-140352188-1');`),
+gtag('js', new Date());gtag('config', '${GTAG_MEASUREMENT_ID}');`),
       e('meta', { charSet: 'utf-8' }),
       e('meta', { httpEquiv: 'X-UA-Compatible', content: 'IE=edge,chrome=1' }),
       description && e('meta', { name: 'description', content: description }),

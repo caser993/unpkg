@@ -22,7 +22,7 @@ const manifest = entryManifest();
 
 const client = ['browse', 'main'].map(entryName => {
   return {
-    external: ['@emotion/core', 'react', 'react-dom'],
+    external: ['@emotion/react', 'react', 'react-dom'],
     input: `modules/client/${entryName}.js`,
     output: {
       format: 'iife',
@@ -31,7 +31,6 @@ const client = ['browse', 'main'].map(entryName => {
       globals: {
         react: 'React',
         'react-dom': 'ReactDOM',
-        '@emotion/core': 'emotionCore',
         '@emotion/react': 'emotionReact'
       }
     },

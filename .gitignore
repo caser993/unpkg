@@ -4,9 +4,12 @@ firebase-debug.log*
 npm-debug.log*
 
 /.env
+/.env.local
+/.env.prod
 /node_modules/
 /public/_client/
 /secrets.tar
 /server.js
 /service-account-staging.json
 /service-account.json
+*.tgz

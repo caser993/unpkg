@@ -4,15 +4,15 @@ const cloudflareURL = 'https://api.cloudflare.com/client/v4';
 const cloudflareEmail = process.env.CLOUDFLARE_EMAIL;
 const cloudflareKey = process.env.CLOUDFLARE_KEY;
 
-if (process.env.NODE_ENV !== 'production') {
-  if (!cloudflareEmail) {
-    throw new Error('Missing the $CLOUDFLARE_EMAIL environment variable');
-  }
+// if (process.env.NODE_ENV !== 'production') {
+//   if (!cloudflareEmail) {
+//     throw new Error('Missing the $CLOUDFLARE_EMAIL environment variable');
+//   }
 
-  if (!cloudflareKey) {
-    throw new Error('Missing the $CLOUDFLARE_KEY environment variable');
-  }
-}
+//   if (!cloudflareKey) {
+//     throw new Error('Missing the $CLOUDFLARE_KEY environment variable');
+//   }
+// }
 
 function get(path, headers) {
   return fetch(`${cloudflareURL}${path}`, {

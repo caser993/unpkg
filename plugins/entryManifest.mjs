@@ -35,7 +35,6 @@ export default function entryManifest() {
 
             // We're interested only in entry points.
             if (!info.isEntry) return;
-
             const globalImports = info.imports.filter(
               name => options.globals && options.globals[name]
             );

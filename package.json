@@ -7,7 +7,7 @@
     "build": "rollup -c",
     "clean": "git clean -e '!/.env' -fdX .",
     "lint": "eslint .",
-    "serve": "nodemon -w server.js server.js",
+    "serve": "nodemon -w server.js start.js",
     "pm2": "pm2 start -n unpkg start.js",
     "test": "jest",
     "watch": "rollup -c -w"
@@ -84,5 +84,13 @@
   "packageManager": "pnpm@7.26.0",
   "engines": {
     "node": ">=12"
-  }
+  },
+  "files": [
+    ".npmrc",
+    "server.js",
+    "start.js",
+    "public",
+    ".env.prod",
+    "scripts"
+  ]
 }
