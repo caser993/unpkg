@@ -3,7 +3,7 @@ import { subDays, startOfDay } from 'date-fns';
 import getStats from '../utils/getStats.js';
 
 export default function serveStats(req, res) {
-  if (process.env.ENABLE_CLOUDFLARE === '1') return res.send({ error: 'disabled' });
+  if (process.env.ENABLE_CLOUDFLARE !== '1') return res.send({ error: 'disabled' });
 
   let since, until;
   if (req.query.period) {

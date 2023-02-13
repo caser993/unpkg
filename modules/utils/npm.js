@@ -24,7 +24,7 @@ const cache = new LRUCache({
   maxSize: oneMegabyte,
 });
 
-// compatible whith old version
+// compatible with old version
 var cset = cache.set.bind(cache);
 cache.set = (key, value, opts) => {
   if (typeof opts === 'number') {
