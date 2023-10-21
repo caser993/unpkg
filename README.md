@@ -1,5 +1,7 @@
 # UNPKG (fork)
 
+> *！！！已修改兼容内网npm私有和镜像化，原仓库描述仅供参考，其中.env配置已不适用生产需要。case.lih 2023-10-21 14:22:40*
+
 **The goals of this fork are:**
 
 * Make it easier to self-host Unpkg.
@@ -47,35 +49,36 @@ npm i --omit dev
 # pnpm i -P
 pm2 -n unpkg start.js
 ```
+> 上述步骤已镜像化封包，除非必要无需调整，可忽略
 
-## Configuration with `.env[.prod|.local]`
+## Release Update
 
-Learn more from the file [.env.sample](./.env.sample).
+* 新增`Dockerfile`镜像配置
+* 新增`docker-compose.yaml`配置(未实测)
+* 新增`run-ucdn.sh`启动脚本
 
-```yaml
-# config for private registry url
-NPM_REGISTRY_URL=https://registry.npmjs.org
-
-# your unpkg website url
-ORIGIN=https://npmcdn.lzw.me
-# port to listen on. default 8080
-PORT=8080
-
-# enableDebugging
-# DEBUG=1
-
-# Google Analytics MEASUREMENT_ID. your can set empty to disable it.
-GTAG_MEASUREMENT_ID=UA-140352188-1
-
-# ENABLE_CLOUDFLARE=1
-# CLOUDFLARE_EMAIL=test@lzw.me
-# CLOUDFLARE_KEY=test
+**docker image制作**
+```bash
+docker build . -t cc993/unpkg
+```
+**docker image发布**
+```bash
+# 内部私有docker registry
+docker tag cc993/unpkg harbor.yn.bjgykj.cn/base_image/unpkg:1.0.0
+docker push harbor.yn.bjgykj.cn/base_image/unpkg:1.0.0
+```
+**docker image使用**
+```bash
+# 拉取镜像
+docker pull harbor.yn.bjgykj.cn/base_image/unpkg:1.0.0
 ```
 
-## Documentation
-
-Please visit [the UNPKG website](https://unpkg.com) to learn more about how to use it.
-
-## Sponsors
-
-Our sponsors and backers are listed [in SPONSORS.md](SPONSORS.md).
+```bash
+# 启动unpkg
+source run-ucdn.sh
+```
+## 注意事项
+* 默认端口：容器`8080`，宿主机`3888`
+* 默认公网NPM地址：`NPM_REGISTRY_URL=https://registry.npmjs.org`
+* 默认私有NPM地址：`ORIGIN=http://webhub.bjgykj.cn/registry/`
+* 可根据环境需要调整`run-ucdn.sh`脚本ENV配置
