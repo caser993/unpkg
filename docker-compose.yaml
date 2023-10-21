@@ -1,0 +1,10 @@
+version: '3'
+services:
+ ucdn:
+  image: harbor.yn.bjgykj.cn/base_image/unpkg:1.0.0
+  environment:
+   - NODE_ENV=production
+   - NPM_REGISTRY_URL=https://registry.npmjs.org
+   - ORIGIN=http://webhub.bjgykj.cn/registry/
+  ports:
+   - "3888:8080"

@@ -1,17 +1,13 @@
 import url from 'url';
-import https from 'https';
+import http from 'http';
 import gunzip from 'gunzip-maybe';
 import LRUCache from 'lru-cache';
 
 import bufferStream from './bufferStream.js';
 
-const npmRegistryURL =
-  process.env.NPM_REGISTRY_URL || 'https://registry.npmjs.org';
+const npmRegistryURL = process.env.ORIGIN || process.env.NPM_REGISTRY_URL
 
-const agent = new https.Agent({
-  keepAlive: true
-});
-
+console.log('地址信息###', process.env.ORIGIN, process.env.NPM_REGISTRY_URL);
 const oneMegabyte = 1024 * 1024;
 const oneSecond = 1000;
 const oneMinute = oneSecond * 60;
@@ -37,7 +33,7 @@ const notFound = '';
 
 function get(options) {
   return new Promise((accept, reject) => {
-    https.get(options, accept).on('error', reject);
+    http.get(options, accept).on('error', reject);
   });
 }
 
@@ -52,23 +48,16 @@ function encodePackageName(packageName) {
 }
 
 async function fetchPackageInfo(packageName, log) {
-  const cacheKey = `pkg-info-${packageName}`;
-  const cacheValue = cache.get(cacheKey);
-
-  if (cacheValue != null) {
-    return cacheValue === notFound ? null : JSON.parse(cacheValue);
-  }
-
   const name = encodePackageName(packageName);
   const infoURL = `${npmRegistryURL}/${name}`;
 
   log.debug('Fetching package info for %s from %s', packageName, infoURL);
 
-  const { hostname, pathname } = url.parse(infoURL);
+  const { hostname, pathname, port } = url.parse(infoURL);
   const options = {
-    agent: agent,
     hostname: hostname,
     path: pathname,
+    port: port,
     headers: {
       Accept: 'application/json'
     }
@@ -77,14 +66,10 @@ async function fetchPackageInfo(packageName, log) {
   const res = await get(options);
 
   if (res.statusCode === 200) {
-    return bufferStream(res).then( value => {
-      cache.set(cacheKey, value, oneMinute);
-      return JSON.parse(value);
-    });
+    return bufferStream(res).then(JSON.parse);
   }
-  
+
   if (res.statusCode === 404) {
-    cache.set(cacheKey, notFound, 5 * oneMinute);
     return null;
   }
 
@@ -191,16 +176,15 @@ export async function getPackage(packageName, version, log) {
   const tarballName = isScopedPackageName(packageName)
     ? packageName.split('/')[1]
     : packageName;
-  const pkgConfig = await getPackageConfig(packageName, version, log);
-  const tarballURL = pkgConfig.dist ? pkgConfig.dist.tarball : `${npmRegistryURL}/${packageName}/-/${tarballName}-${version}.tgz`;
+  const tarballURL = `${npmRegistryURL}/${packageName}/-/${tarballName}-${version}.tgz`;
 
   log.debug('Fetching package for %s from %s', packageName, tarballURL);
 
-  const { hostname, pathname } = url.parse(tarballURL);
+  const { hostname, pathname, port } = url.parse(tarballURL);
   const options = {
-    agent: agent,
     hostname: hostname,
-    path: pathname
+    path: pathname,
+    port: port
   };
 
   const res = await get(options);
