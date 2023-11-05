@@ -1,4 +1,4 @@
-FROM harbor.yn.bjgykj.cn/base_image/node:16.19.0-alpine
+FROM node:16.19.0-alpine
 # 🔴 pnpm 安装
 RUN corepack enable
 # 🔴 创建 unpkg 目录
@@ -10,7 +10,7 @@ RUN pnpm i -P
 # 🔴 设置环境变量
 ENV NODE_ENV=production \
 NPM_REGISTRY_URL=https://registry.npmjs.org \
-ORIGIN=http://webhub.bjgykj.cn/registry/
+ORIGIN=http://npmcdn.lzw.me
 
 EXPOSE 8080
 
